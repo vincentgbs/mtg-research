@@ -11,7 +11,7 @@ jsonString = f.read()
 # Convert JSON String to Python
 jsonObjects = json.loads(jsonString)
 
-# # check count
+# # sanity check count
 # print(len(jsonObjects))
 
 columns = set()
@@ -22,10 +22,18 @@ for card in jsonObjects:
 conn = sqlite3.connect(f"mtg_cards.db")
 
 cursor = conn.cursor()
-sql = "CREATE TABLE IF NOT EXISTS cycles ("
-sql += " VARCHAR, pos_".join(columns)
+sql = "CREATE TABLE IF NOT EXISTS defaultcards ("
+sql += " VARCHAR, scryfall_".join(columns)
 sql += " VARCHAR);"
 print(sql)
 
 cursor.execute(sql)
 conn.commit()
+
+for card in jsonObjects:
+    columns = ", scryfall_".join(card.keys())
+    values = "', '".join(map(str, card.values()))
+    sql = f"INSERT INTO defaultcards ({columns}) VALUES ({values});"
+    print(sql)
+    cursor.execute(sql)
+    conn.commit()
