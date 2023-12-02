@@ -2,8 +2,27 @@ import json
 import pickle
 import sqlite3
 
+# base_url = "https://data.scryfall.io/default-cards/"
+file_name = "default-cards-20231023210947.json"
 
-f = open("default-cards-20231023210947.json", "r")
+# ## UNTESTED
+# import os
+# import shutil
+# import requests
+# from pathlib import Path
+#
+# def download_file(url, target_dir):
+#     local_filename = url.split('/')[-1]
+#     path = os.path.join("/{}/{}".format(target_dir, local_filename))
+#     with requests.get(url, stream=True) as r:
+#         with open(path, 'wb') as f:
+#             shutil.copyfileobj(r.raw, f)
+#     return local_filename
+#
+# pwd = Path(__file__).parent
+# download_file(base_url + file_name, pwd)
+
+f = open(file_name, "r")
 
 # Define JSON string
 jsonString = f.read()
