@@ -1,3 +1,4 @@
 *.json
 *.db
 *.txt
+*/.DS_Store
